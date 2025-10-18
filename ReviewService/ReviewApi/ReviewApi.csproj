@@ -16,8 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ReviewApplication\ReviewApplication.csproj" />
-    <ProjectReference Include="..\ReviewDomain\ReviewDomain.csproj" />
-    <ProjectReference Include="..\ReviewRepository\ReviewInfrastructure.csproj" />
   </ItemGroup>
 
 </Project>

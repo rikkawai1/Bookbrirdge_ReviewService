@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using ReviewApplication.Interface;
 using ReviewApplication.Models;
 using ReviewDomain.Entities;
-using ReviewInfrastructure.DBContext;
 using ReviewInfrastructure.Repositories;
 
 namespace ReviewApplication.Services
