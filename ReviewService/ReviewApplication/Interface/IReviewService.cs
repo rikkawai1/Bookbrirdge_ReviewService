@@ -11,7 +11,7 @@ namespace ReviewApplication.Interface
 {
     public interface IReviewService
     {
-        Task<Review> CreateReviewAsync(ReviewCreateRequest request);
+        Task<Review> CreateReviewAsync(ReviewCreateDto dto);
 
         Task<PagedResult<Review>> GetAllReviewsAsync(int PageNo, int PageSize);
 

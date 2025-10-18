@@ -15,11 +15,11 @@ namespace ReviewInfrastructure.Repositories
         public ReviewRepository(ReviewDBContext context) : base(context) { }
         public async Task<List<Review>> GetAllAsync()
         {
-            return await _dbSet.Include(r => r.ReviewImages).Where(r => r.IsActive).ToListAsync();
+            return await _dbSet.Where(r => r.IsActive).ToListAsync();
         }
         public async Task<Review> GetByIdAsync(int id)
         {
-            return await _dbSet.Include(r => r.ReviewImages).FirstOrDefaultAsync(r => r.ReviewId == id);
+            return await _dbSet.FirstOrDefaultAsync(r => r.ReviewId == id);
 
         }
         public async Task<bool> DeleteAsync(int id)

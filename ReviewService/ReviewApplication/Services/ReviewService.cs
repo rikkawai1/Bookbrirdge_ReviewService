@@ -20,9 +20,10 @@ namespace ReviewApplication.Services
             _mapper = mapper;
         }
 
-        public async Task<Review> CreateReviewAsync(ReviewCreateRequest request)
+        public async Task<Review> CreateReviewAsync(ReviewCreateDto dto)
         {
-            var entity = _mapper.Map<Review>(request);
+            var entity = _mapper.Map<Review>(dto);
+            entity.CreatedAt = DateTime.UtcNow;
             return await _repo.CreateAsync(entity);
         }
 

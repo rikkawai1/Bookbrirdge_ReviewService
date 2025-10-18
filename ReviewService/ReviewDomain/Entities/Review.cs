@@ -23,11 +23,10 @@ namespace ReviewDomain.Entities
         [Required]
         [MaxLength(1000)]
         public string Comment { get; set; } = default!;
+        public string? ImageUrl { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public bool IsActive { get; set; } = false;
-        // Navigation property
-        public ICollection<ReviewImage> ReviewImages { get; set; } = new List<ReviewImage>();
     }
 
 }

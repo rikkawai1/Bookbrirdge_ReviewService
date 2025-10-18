@@ -20,9 +20,9 @@ builder.Services.AddDbContext<ReviewDBContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("ReviewDBConnection")));
 
 builder.Services.AddScoped<IReviewService, ReviewService>();
+builder.Services.AddScoped<IImageService, ImageService>();
 
 builder.Services.AddScoped<ReviewRepository>();
-builder.Services.AddScoped<ReviewImageRepository>();
 
 var app = builder.Build();
 

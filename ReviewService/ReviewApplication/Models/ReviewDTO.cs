@@ -1,4 +1,5 @@
-﻿using ReviewDomain.Entities;
+﻿using Microsoft.AspNetCore.Http;
+using ReviewDomain.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -24,7 +25,7 @@ namespace ReviewApplication.Models
         public string Comment { get; set; } = default!;
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public List<ReviewImage> Images { get; set; }
+        public string? ImageUrl {  get; set; }
     }
     public class ReviewCreateRequest
     {
@@ -33,21 +34,14 @@ namespace ReviewApplication.Models
         public int Rating { get; set; }
 
         public string Comment { get; set; } = default!;
-        public List<ImageCreateRequest> Images { get; set; }
+        public IFormFile? Image { get; set; }
+
     }
-    public class ReviewImageDTO
+    public class ReviewCreateDto
     {
-        public int ReviewImageId { get; set; }
-
-        public int ReviewId { get; set; }
-
-        public string ImageUrl { get; set; } = default!;
-
+        public string UserId { get; set; } = default!;
+        public int Rating { get; set; }
+        public string Comment { get; set; } = default!;
+        public string? ImageUrl { get; set; }
     }
-    public class ImageCreateRequest
-    {
-        public string ImageUrl { get; set; } = default!;
-
-    }
-
 }

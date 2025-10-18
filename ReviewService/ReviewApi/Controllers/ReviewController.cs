@@ -11,21 +11,36 @@ namespace ReviewApi.Controllers
     public class ReviewController : ControllerBase
     {
         private readonly IReviewService _service;
+        private readonly IImageService _imageService;
 
-        public ReviewController(IReviewService service)
+        public ReviewController(IReviewService service, IImageService imageService)
         {
             _service = service;
+            _imageService = imageService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateReview([FromBody] ReviewCreateRequest request)
+        public async Task<IActionResult> CreateReview([FromForm] ReviewCreateRequest request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var created = await _service.CreateReviewAsync(request);
+            string? imageUrl = null;
+            if (request.Image != null)
+                imageUrl = await _imageService.UploadImageAsync(request.Image);
+
+            var dto = new ReviewCreateDto
+            {
+                UserId = request.UserId,
+                Rating = request.Rating,
+                Comment = request.Comment,
+                ImageUrl = imageUrl
+            };
+
+            var created = await _service.CreateReviewAsync(dto);
             return CreatedAtAction(nameof(GetReviewById), new { id = created.ReviewId }, created);
         }
+
         [HttpGet]
         public async Task<IActionResult> GetAllReviews([FromQuery] int pageNo = 1, [FromQuery] int pageSize = 10)
         {

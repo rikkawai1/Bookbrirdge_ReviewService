@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ReviewDomain.Entities;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ReviewInfrastructure.DBContext
 {
@@ -11,44 +13,24 @@ namespace ReviewInfrastructure.DBContext
         }
 
         public DbSet<Review> Reviews { get; set; } = default!;
-        public DbSet<ReviewImage> ReviewImages { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            // -----------------------------
-            // 🔗 Cấu hình quan hệ 1 - Nhiều
-            // -----------------------------
-            modelBuilder.Entity<Review>()
-                .HasMany(r => r.ReviewImages)
-                .WithOne(ri => ri.Review)
-                .HasForeignKey(ri => ri.ReviewId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            // -----------------------------
-            // 🕒 Cấu hình thời gian tạo mặc định (UTC)
-            // -----------------------------
+            // Default value for CreatedAt (UTC)
             modelBuilder.Entity<Review>()
                 .Property(r => r.CreatedAt)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-            // -----------------------------
-            // 🚫 Soft Delete Filter (chỉ lấy review chưa xóa)
-            // -----------------------------
+            // Soft delete filter
             modelBuilder.Entity<Review>()
                 .HasQueryFilter(r => !r.IsActive);
 
-            // -----------------------------
-            // 🧱 Đặt tên bảng (nếu muốn)
-            // -----------------------------
+            // Table name
             modelBuilder.Entity<Review>().ToTable("Reviews");
-            modelBuilder.Entity<ReviewImage>().ToTable("ReviewImages");
         }
 
-        // -----------------------------
-        // ⚙️ Gợi ý override SaveChangesAsync (nếu muốn xử lý soft delete logic)
-        // -----------------------------
         public override int SaveChanges()
         {
             HandleSoftDelete();

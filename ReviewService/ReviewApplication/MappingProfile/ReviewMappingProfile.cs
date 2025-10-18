@@ -13,10 +13,9 @@ namespace ReviewApplication.MappingProfile
     {
         public ReviewMappingProfile()
         {
-            CreateMap<ReviewCreateRequest, Review>()
-            .ForMember(dest => dest.ReviewImages, opt => opt.MapFrom(src => src.Images));
-
-            CreateMap<ImageCreateRequest, ReviewImage>();
+            CreateMap<ReviewCreateRequest, Review>();
+            CreateMap<ReviewCreateDto, Review>();
+            
         }
     }
 }
