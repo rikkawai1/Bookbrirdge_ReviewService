@@ -35,7 +35,10 @@ namespace ReviewApi.Controllers
                 BookId = request.BookId,
                 Rating = request.Rating,
                 Comment = request.Comment,
-                ImageUrl = imageUrl
+                ImageUrl = imageUrl,
+                StoreId = request.StoreId,
+                OrderId = request.OrderId
+                
 
             };
 
