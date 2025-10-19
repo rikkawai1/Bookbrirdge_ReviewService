@@ -13,11 +13,11 @@ namespace ReviewInfrastructure.Repositories
     public class ReviewRepository : BaseRepository<Review, int>
     {
         public ReviewRepository(ReviewDBContext context) : base(context) { }
-        public async Task<List<Review>> GetAllAsync()
+        public async Task<List<Review>> GetReviewByBookId(int bookId)
         {
-            return await _dbSet.Where(r => r.IsActive).ToListAsync();
+            return await _dbSet.Where(r => r.BookId == bookId).ToListAsync();
         }
-        public async Task<Review> GetByIdAsync(int id)
+        public async Task<Review> GetReviewById(int id)
         {
             return await _dbSet.FirstOrDefaultAsync(r => r.ReviewId == id);
 

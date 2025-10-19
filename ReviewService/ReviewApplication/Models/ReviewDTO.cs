@@ -16,6 +16,7 @@ namespace ReviewApplication.Models
 
         [Required]
         public string UserId { get; set; } = default!;
+        public int BookId { get; set; }
 
         [Range(1, 5)]
         public int Rating { get; set; }
@@ -30,6 +31,7 @@ namespace ReviewApplication.Models
     public class ReviewCreateRequest
     {
         public string UserId { get; set; } = default!;
+        public int BookId { get; set; }
 
         public int Rating { get; set; }
 
@@ -40,6 +42,8 @@ namespace ReviewApplication.Models
     public class ReviewCreateDto
     {
         public string UserId { get; set; } = default!;
+        public int BookId { get; set; }
+
         public int Rating { get; set; }
         public string Comment { get; set; } = default!;
         public string? ImageUrl { get; set; }

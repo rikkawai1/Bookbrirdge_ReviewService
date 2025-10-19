@@ -24,12 +24,13 @@ namespace ReviewApplication.Services
         {
             var entity = _mapper.Map<Review>(dto);
             entity.CreatedAt = DateTime.UtcNow;
+            entity.IsActive = true;
             return await _repo.CreateAsync(entity);
         }
 
-        public async Task<PagedResult<Review>> GetAllReviewsAsync(int PageNo, int PageSize)
+        public async Task<PagedResult<Review>> GetReviewByBookId(int BookId, int PageNo, int PageSize)
         {
-            var rL = await _repo.GetAllAsync();
+            var rL = await _repo.GetReviewByBookId(BookId);
             var rLPaging = PagedResult<Review>.Create(rL, PageNo, PageSize);
             return rLPaging;
         }
@@ -37,7 +38,7 @@ namespace ReviewApplication.Services
         // 🔵 Lấy review theo ID
         public async Task<Review?> GetReviewByIdAsync(int reviewId)
         {
-            return await _repo.GetByIdAsync(reviewId);
+            return await _repo.GetReviewById(reviewId);
         }
 
         public async Task<bool> DeleteReviewAsync(int id)

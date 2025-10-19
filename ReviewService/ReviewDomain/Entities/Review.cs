@@ -16,6 +16,8 @@ namespace ReviewDomain.Entities
 
         [Required]
         public string UserId { get; set; } = default!;
+        [Required]
+        public int BookId { get; set; }
 
         [Range(1, 5)]
         public int Rating { get; set; }

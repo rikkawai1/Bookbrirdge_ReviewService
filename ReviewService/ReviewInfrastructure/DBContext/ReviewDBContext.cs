@@ -23,9 +23,9 @@ namespace ReviewInfrastructure.DBContext
                 .Property(r => r.CreatedAt)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-            // Soft delete filter
+            // Soft delete filter: chỉ lấy review đang hoạt động
             modelBuilder.Entity<Review>()
-                .HasQueryFilter(r => !r.IsActive);
+                .HasQueryFilter(r => r.IsActive);
 
             // Table name
             modelBuilder.Entity<Review>().ToTable("Reviews");
@@ -49,8 +49,9 @@ namespace ReviewInfrastructure.DBContext
             {
                 if (entry.State == EntityState.Deleted)
                 {
+                    // Soft delete: set IsActive = false
                     entry.State = EntityState.Modified;
-                    entry.Entity.IsActive = true;
+                    entry.Entity.IsActive = false;
                 }
             }
         }

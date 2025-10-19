@@ -32,9 +32,11 @@ namespace ReviewApi.Controllers
             var dto = new ReviewCreateDto
             {
                 UserId = request.UserId,
+                BookId = request.BookId,
                 Rating = request.Rating,
                 Comment = request.Comment,
                 ImageUrl = imageUrl
+
             };
 
             var created = await _service.CreateReviewAsync(dto);
@@ -42,9 +44,9 @@ namespace ReviewApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllReviews([FromQuery] int pageNo = 1, [FromQuery] int pageSize = 10)
+        public async Task<IActionResult> GetReviewsByBookId([FromQuery] int bookId, [FromQuery] int pageNo = 1, [FromQuery] int pageSize = 10)
         {
-            PagedResult<Review> result = await _service.GetAllReviewsAsync(pageNo, pageSize);
+            PagedResult<Review> result = await _service.GetReviewByBookId(bookId, pageNo, pageSize);
             return Ok(result);
         }
         [HttpGet("{id}")]

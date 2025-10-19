@@ -13,7 +13,7 @@ namespace ReviewApplication.Interface
     {
         Task<Review> CreateReviewAsync(ReviewCreateDto dto);
 
-        Task<PagedResult<Review>> GetAllReviewsAsync(int PageNo, int PageSize);
+        Task<PagedResult<Review>> GetReviewByBookId(int BookId, int PageNo, int PageSize);
 
         Task<Review?> GetReviewByIdAsync(int reviewId);
 

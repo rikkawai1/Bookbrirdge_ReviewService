@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ReviewApplication.Interface;
+using ReviewApplication.MappingProfile;
 using ReviewApplication.Services;
 using ReviewInfrastructure.DBContext;
 using ReviewInfrastructure.Repositories;
@@ -18,6 +19,9 @@ builder.Services.AddAutoMapper(typeof(Program)); // hoặc assembly chứa profi
 
 builder.Services.AddDbContext<ReviewDBContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("ReviewDBConnection")));
+
+builder.Services.AddAutoMapper(typeof(ReviewMappingProfile));
+
 
 builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<IImageService, ImageService>();
