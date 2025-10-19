@@ -15,7 +15,7 @@ namespace ReviewInfrastructure.Repositories
         public ReviewRepository(ReviewDBContext context) : base(context) { }
         public async Task<List<Review>> GetReviewByBookId(int bookId)
         {
-            return await _dbSet.Where(r => r.BookId == bookId).ToListAsync();
+            return await _dbSet.Where(r => r.BookId == bookId && r.IsActive).ToListAsync();
         }
         public async Task<Review> GetReviewById(int id)
         {
